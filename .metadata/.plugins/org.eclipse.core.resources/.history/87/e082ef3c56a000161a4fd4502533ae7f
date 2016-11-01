@@ -1,0 +1,39 @@
+import java.awt.geom.Point2D;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class TravellingSalesmanProblem {
+
+	public static void main(String[] args) {
+		ArrayList<Point2D> lolImGood = TSPLibLoader.loadTSPLib("rl5934.tsp");
+		for(Point2D Jeremiah: lolImGood)
+		{
+			System.out.println(Jeremiah);
+		}
+		
+		double route = routeLength(lolImGood);
+		System.out.println(route);
+	}
+	
+	public static double routeLength(ArrayList<Point2D> cities)
+	{
+		//Calculate the length of a TSP route held in an ArrayList as a setof Points
+		double result=0;//Holds the route length
+		Point2D prev = cities.get(cities.size()-1);
+		//Set the previous city to the last city in the ArrayList as we needto measure the length of the entire loop
+		for(Point2D city : cities)
+		{
+			//Go through each city in turn
+			result += city.distance(prev);
+			//get distance from the previous city
+			prev = city;
+			//current city will be the previous city next time
+		}
+		return result;
+	}
+	
+
+
+}
