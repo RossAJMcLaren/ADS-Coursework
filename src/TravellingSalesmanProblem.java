@@ -1,19 +1,29 @@
 import java.awt.geom.Point2D;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 public class TravellingSalesmanProblem {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		ArrayList<Point2D> lolImGood = TSPLibLoader.loadTSPLib("rl5934.tsp");
-		for(Point2D Jeremiah: lolImGood)
-		{
-			System.out.println(Jeremiah);
-		}
-		
 		double route = routeLength(lolImGood);
+		System.out.println(route);
+
+		lolImGood = nearestNeighbour(lolImGood);
+		route = routeLength(lolImGood);
+		System.out.println(route);
+
+		lolImGood = nearestNeighbour(lolImGood);
+		route = routeLength(lolImGood);
+		System.out.println(route);
+
+		lolImGood = nearestNeighbour(lolImGood);
+		route = routeLength(lolImGood);
+		System.out.println(route);
+
+		lolImGood = nearestNeighbour(lolImGood);
+		route = routeLength(lolImGood);
 		System.out.println(route);
 	}
 	
@@ -34,6 +44,34 @@ public class TravellingSalesmanProblem {
 		return result;
 	}
 	
+	public static ArrayList<Point2D> nearestNeighbour(ArrayList<Point2D> cities)
+	{
+		ArrayList<Point2D> result = new ArrayList<Point2D>();
+		Point2D currentCity = cities.remove(0);
+		double distance;
+		Point2D closestCity = cities.get(1);
 
+		while(cities.size() > 0)
+		{
+			result.add(currentCity);
+			distance = Double.POSITIVE_INFINITY;
+			for (Point2D possible : cities)
+			{
+				if (getDistance(currentCity, possible) < distance)
+				{
+					closestCity = possible;
+					distance = getDistance(currentCity, possible);
+				}
+			}
+			cities.remove(closestCity);
+			currentCity = closestCity;
+		}
+		return result;
+	}
+
+	public static double getDistance(Point2D currentCity, Point2D possibleNextCity)
+	{
+		return currentCity.distance(possibleNextCity);
+	}
 
 }
