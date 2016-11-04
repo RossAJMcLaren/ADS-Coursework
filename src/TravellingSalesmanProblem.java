@@ -10,10 +10,6 @@ public class TravellingSalesmanProblem {
 		double route = routeLength(lolImGood);
 		System.out.println(route);
 
-		/*lolImGood = nearestNeighbour(lolImGood);
-		route = routeLength(lolImGood);
-		System.out.println(route);*/
-
 		lolImGood = nearestNeighbour(lolImGood);
 		route = routeLength(lolImGood);
 		System.out.println(route);
@@ -39,43 +35,35 @@ public class TravellingSalesmanProblem {
 	public static ArrayList<Point2D> nearestNeighbour(ArrayList<Point2D> cities)
 	{
 		ArrayList<Point2D> result = new ArrayList<Point2D>();
-		Point2D currentCity = cities.remove(0);
+		Random ran = new Random();
+		Point2D currentCity = cities.remove(ran.nextInt(cities.size()));
 		double distance;
-		double bound = 10000;
-		Point2D closestCity = cities.get(1);
-		Point2D farthestCity = cities.get(1);
-		Boolean close = true;
+		double bound = 6500;
 
 		while(cities.size() > 0)
 		{
-			result.add(currentCity);
 			distance = Double.POSITIVE_INFINITY;
+			ArrayList<Point2D> cluster = new ArrayList<Point2D>();
 			for (Point2D possible : cities)
 			{
-				if (getDistance(currentCity, possible) < distance && getDistance(currentCity, possible) < bound)
+				if(getDistance(currentCity, possible) < distance && getDistance(currentCity, possible) < bound)
 				{
-					closestCity = possible;
-					close = true;
 					distance = getDistance(currentCity, possible);
-				}
-				else
-				{
-					close = false;
-					farthestCity = possible;
-					distance = getDistance(farthestNeighbour(cities, currentCity), possible);
+					cluster.add(possible);
 				}
 			}
-			System.out.println(cities.size());
-			cities.remove(closestCity);
-			cities.remove(farthestCity);
-			if(close)
+			//System.out.println(cities.size());
+			for(Point2D c : cluster)
 			{
-				currentCity = closestCity;
+				cities.remove(cluster.get(cluster.indexOf(c)));
+				result.add(cluster.get(cluster.indexOf(c)));
 			}
-			else
+
+			if(cities.size() != 0)
 			{
-				currentCity = farthestCity;
+			currentCity = farthestNeighbour(cities, cluster.get(ran.nextInt(cluster.size())));
 			}
+			System.out.println(cluster.size());
 		}
 		return result;
 	}
@@ -87,7 +75,7 @@ public class TravellingSalesmanProblem {
 	{
 		Point2D currentCity = city;
 		double distance = 0;
-		Point2D farthestCity = cities.get(1);
+		Point2D farthestCity = cities.get(0);
 
 		for (Point2D possible : cities)
 		{
@@ -101,63 +89,7 @@ public class TravellingSalesmanProblem {
 		return farthestCity;
 	}
 
-	public static ArrayList<ArrayList<Point2D>> findCluster(ArrayList<Point2D> cities)
-	{
-		ArrayList<ArrayList<Point2D>> result = new ArrayList<ArrayList<Point2D>>();
-		ArrayList<Point2D> cluster = new ArrayList<Point2D>();
-		Point2D currentCity = farthestNeighbour(cities, cities.remove(0));
-		double distance;
-		double bounds;
-		Point2D closestCity = cities.get(1);
 
-
-		while(cities.size() > 0)
-		{
-			distance = Double.POSITIVE_INFINITY;
-			for (Point2D possible : cities)
-			{
-				bounds = 500.0;
-				if (getDistance(currentCity, possible) < distance && getDistance(currentCity, possible) < bounds)
-				{
-					closestCity = possible;
-					distance = getDistance(currentCity, possible);
-					cluster.add(possible);
-				}
-			}
-			cities.remove(closestCity);
-			currentCity = farthestNeighbour(cities, closestCity);
-			result.add(cluster);
-		}
-		return result;
-	}
-
-	/*public static ArrayList<Point2D> nearestCluster(ArrayList<ArrayList<Point2D>> clusters)
-	{
-		//cities = farthestNeighbour(cities);
-		ArrayList<Point2D> result = new ArrayList<Point2D>();
-		Point2D currentCity = clusters.get(0).remove(0);
-		double distance;
-		Point2D closestCity = clusters.get(0).get(1);
-
-		while(clusters.size() > 0)
-		{
-			result.add(currentCity);
-			distance = Double.POSITIVE_INFINITY;
-			for (ArrayList<Point2D> possible : clusters)
-			{
-				for(Point2D point : possible)
-				{
-					if (getDistance(currentCity, possible) < distance) {
-						closestCity = possible;
-						distance = getDistance(currentCity, possible);
-					}
-				}
-			}
-			cities.remove(closestCity);
-			currentCity = closestCity;
-		}
-		return result;
-	}*/
 
 	public static double getDistance(Point2D currentCity, Point2D possibleNextCity)
 	{
