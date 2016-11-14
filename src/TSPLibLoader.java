@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TSPLibLoader {
 	
-	public static ArrayList<Point2D> loadTSPLib(String fName)
+	public static ArrayList<City> loadTSPLib(String fName)
 	{
 		//Load in a TSPLib instance. This example assumes that the Edge weight type
 		//is EUC_2D.
@@ -15,7 +15,7 @@ public class TSPLibLoader {
 		//modify the this code
 		
 		
-		ArrayList<Point2D> result = new ArrayList<Point2D>();
+		ArrayList<City> result = new ArrayList<City>();
 		BufferedReader br = null;
 		try {
 		String currentLine;
@@ -47,7 +47,8 @@ public class TSPLibLoader {
 				float x = Float.parseFloat(tokens[1].trim());
 				float y = Float.parseFloat(tokens[2].trim());
 				//Use Java's built in Point2D type to hold a city
-				Point2D city = new Point2D.Float(x,y);
+				City city = new City();
+				city.cityCoOrdinates = new Point2D.Float(x,y);
 				//Add this city into the arraylist
 				result.add(city);
 			}
