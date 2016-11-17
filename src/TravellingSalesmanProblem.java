@@ -6,24 +6,42 @@ public class TravellingSalesmanProblem {
 
 	public static void main(String[] args)
 	{
-		ArrayList<City> lolImGood = TSPLibLoader.loadTSPLib("rl5915.tsp");
-		double route = routeLength(lolImGood);
+		ArrayList<City> listOfCities = TSPLibLoader.loadTSPLib("rl5915.tsp");
+		double route = routeLength(listOfCities);
 		System.out.println(route);
-		ArrayList<City> test = new ArrayList<City>();
+
+		ArrayList<City> listOfCitiesAfterNearestNeighbour;
 		double result = 0.0;
-		test = nearestNeighbour(lolImGood);
-		route = routeLength(test);
+        listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
+		route = routeLength(listOfCitiesAfterNearestNeighbour);
 		result += route;
 		System.out.println(result);
 
-		double result2 = 0.0;
+		result = 0.0;
 
-		ArrayList<City> spaghetti = nearestThreeNeighbours(lolImGood);
-		route = routeLength(spaghetti);
-		result2 += route;
+		ArrayList<City> listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
+		route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
+		result += route;
 
+		System.out.println(result);
 
-		System.out.println(result2);
+        listOfCities = TSPLibLoader.loadTSPLib("berlin52.tsp");
+        route = routeLength(listOfCities);
+        System.out.println(route);
+
+        result = 0.0;
+        listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
+        route = routeLength(listOfCitiesAfterNearestNeighbour);
+        result += route;
+        System.out.println(result);
+
+        result = 0.0;
+
+        listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
+        route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
+        result += route;
+
+        System.out.println(result);
 
 	}
 	
