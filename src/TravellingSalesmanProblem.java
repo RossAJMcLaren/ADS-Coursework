@@ -1,47 +1,181 @@
 import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Polygon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class TravellingSalesmanProblem {
 
 	public static void main(String[] args)
 	{
 		ArrayList<City> listOfCities = TSPLibLoader.loadTSPLib("rl5915.tsp");
-		double route = routeLength(listOfCities);
-		System.out.println(route);
-
+		System.out.println(listOfCities.size());
 		ArrayList<City> listOfCitiesAfterNearestNeighbour;
+		ArrayList<City> listOfCitiesAfterNearestThreeNeighbours;
+		double route = routeLength(listOfCities);
 		double result = 0.0;
-        listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
-		route = routeLength(listOfCitiesAfterNearestNeighbour);
-		result += route;
-		System.out.println(result);
+		System.out.println(route);
+		long start = 0;
+		long end = 0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestNeighbour);
+			result += route;
+		}
+
+		result = result/500;
+		System.out.println("Average rute length for Nearest Neighbour for rl5915.tsp " + result);
+		System.out.println("Time for Nearest Three Neighbours for rl5915.tsp" + end + "ms");
 
 		result = 0.0;
 
-		ArrayList<City> listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
-		route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
-		result += route;
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
+			result += route;
+		}
 
-		System.out.println(result);
+		result = result/500;
+		System.out.println("Average route length for Nearest Three Neighbours for rl5915.tsp " + result);
+		System.out.println("Time for Nearest Three Neighbours for rl5915.tsp" + end + "ms");
 
         listOfCities = TSPLibLoader.loadTSPLib("berlin52.tsp");
         route = routeLength(listOfCities);
-        System.out.println(route);
-
-        result = 0.0;
-        listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
-        route = routeLength(listOfCitiesAfterNearestNeighbour);
-        result += route;
-        System.out.println(result);
 
         result = 0.0;
 
-        listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
-        route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
-        result += route;
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestNeighbour);
+			result += route;
+		}
 
-        System.out.println(result);
+		result = result/500;
+
+        System.out.println("Average route length for nearest neighbour for Berlin52 " + result);
+		System.out.println("Time for nearest neighbour for Berlin52 " + end + "ms");
+
+        result = 0.0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
+			result += route;
+		}
+		result = result/500;
+
+        System.out.println("Average route length for nearest three neighbours for Berlin52 " +result);
+		System.out.println("Time for nearest three neighbours for berling52 " + end + "ms");
+
+		listOfCities = TSPLibLoader.loadTSPLib("rl5934.tsp");
+		route = routeLength(listOfCities);
+
+		result = 0.0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestNeighbour);
+			result += route;
+		}
+
+		result = result/500;
+
+		System.out.println("Average route length for nearest neighbour for rl5934 " + result);
+		System.out.println("Time for nearest neighbour for rl5934 " + end + "ms");
+
+		result = 0.0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
+			result += route;
+		}
+		result = result/500;
+
+		System.out.println("Average route length for nearest three neighbours for rl5934 " +result);
+		System.out.println("Time for nearest three neighbours for rl5934 " + end + "ms");
+
+		listOfCities = TSPLibLoader.loadTSPLib("pr1002.tsp");
+		route = routeLength(listOfCities);
+
+		result = 0.0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestNeighbour);
+			result += route;
+		}
+
+		result = result/500;
+
+		System.out.println("Average route length for nearest neighbour for pr1002 " + result);
+		System.out.println("Time for nearest neighbour for pr1002 " + end + "ms");
+
+		result = 0.0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
+			result += route;
+		}
+		result = result/500;
+
+		System.out.println("Average route length for nearest three neighbours for pr1002 " +result);
+		System.out.println("Time for nearest three neighbours for pr1002 " + end + "ms");
+
+		listOfCities = TSPLibLoader.loadTSPLib("pcb3038.tsp");
+		route = routeLength(listOfCities);
+
+		result = 0.0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestNeighbour = nearestNeighbour(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestNeighbour);
+			result += route;
+		}
+
+		result = result/500;
+
+		System.out.println("Average route length for nearest neighbour for pcb3038 " + result);
+		System.out.println("Time for nearest neighbour for pcb3038 " + end + "ms");
+
+		result = 0.0;
+
+		for(int i = 0; i < 500; i++) {
+			start = System.currentTimeMillis();
+			listOfCitiesAfterNearestThreeNeighbours = nearestThreeNeighbours(listOfCities);
+			end = System.currentTimeMillis() - start;
+			route = routeLength(listOfCitiesAfterNearestThreeNeighbours);
+			result += route;
+		}
+		result = result/500;
+
+		System.out.println("Average route length for nearest three neighbours for pcb3038 " +result);
+		System.out.println("Time for nearest three neighbours for pcb3038 " + end + "ms");
 
 	}
 	
@@ -132,8 +266,6 @@ public class TravellingSalesmanProblem {
 				result = potentialResult;
 			}
 		}
-		System.out.println(cityList.size());
-		System.out.println(result.size());
 		return result;
 	}
 
@@ -159,8 +291,6 @@ public class TravellingSalesmanProblem {
 			}
 			currentCity = closestCity;
 		}
-		System.out.println(cities.size());
-		System.out.println(result.size());
 		return result;
 	}
 
@@ -200,5 +330,4 @@ public class TravellingSalesmanProblem {
 	{
 		return currentCity.distance(possibleNextCity);
 	}
-
 }
